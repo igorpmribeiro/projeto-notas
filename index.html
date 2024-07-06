@@ -1,0 +1,43 @@
+document.addEventListener("DOMContentLoaded", (event) => {
+
+  function setCookieLogin() {
+    let cookiesTeste = Cookies.get("customer");
+
+    if (cookiesTeste) {
+      let cookieLogado = Cookies.set("logado", "true", { expires: 7 });
+      return cookieLogado;
+    } else {
+      return false;
+    }
+  }
+  
+  let loginInfo = document.querySelectorAll(".product-card-price-blocked");
+  let priceInfo = document.querySelectorAll(".product-card-price");
+  
+  function checkLogin() {
+    let logado = Cookies.get("logado");
+    if (logado) {
+      loginInfo.forEach((element) => {
+      element.classList.toggle("priceBlocked");
+      });
+      priceInfo.forEach((element) => {
+      element.classList.toggle("showPrice");
+      });
+    } else {
+      loginInfo.forEach((element) => {
+      element.classList.toggle("showPrice");
+      });
+      priceInfo.forEach((element) => {
+      element.classList.toggle("priceBlocked");
+      });
+    }
+  }
+
+  let cookieChecked = Cookies.get("customer");
+
+  if (!cookieChecked) {
+    setCookieLogin();
+  }
+  checkLogin();
+
+});
